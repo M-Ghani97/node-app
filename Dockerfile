@@ -2,7 +2,7 @@ FROM node:12
 
 WORKDIR /usr/src/app
 
-COPY ./node-app .
+COPY . .
 
 RUN npm install
 

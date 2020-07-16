@@ -22,7 +22,7 @@ pipeline {
             steps {
                 // sh "docker build -t mghani828/node-app:${BUILD_NUMBER} ."
                 script {
-                    IMAGE = docker.build REGISTRY + ":$BUILD_NUMBER"
+                    dockerImage = docker.build registry + ":$BUILD_NUMBER"
                 }
             }
         }

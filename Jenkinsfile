@@ -8,9 +8,9 @@ pipeline {
     agent any
     environment {
         HOME = '.'
-        REGISTRY = 'mghani828/node-app'
-        REG_CRED = 'docker-hub'
-        IMAGE = ''
+        registry = 'mghani828/node-app'
+        registryCredential = 'docker-hub'
+        dockerImage = ''
     }
     stages {
         stage('Build App') { 
@@ -22,7 +22,7 @@ pipeline {
             steps {
                 // sh "docker build -t mghani828/node-app:${BUILD_NUMBER} ."
                 script {
-                    IMAGE = docker.build REGISTRY + "${BUILD_NUMBER}"
+                    IMAGE = docker.build REGISTRY + ":$BUILD_NUMBER"
                 }
             }
         }

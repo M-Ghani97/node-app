@@ -31,8 +31,17 @@ pipeline {
                 // sh "docker push mghani828/node-app:${BUILD_NUMBER}"
                 script {
                     docker.withRegistry( '', registryCredential ) {
-                    dockerImage.push()
+                        dockerImage.push()
                     }
+                }
+            }
+        }
+        stage ('Deploy') {
+            steps{
+                sshagent(credentials : ['ec2-deploy']) {
+                    sh 'ssh -o StrictHostKeyChecking=no ubuntu@ec2-52-87-217-26.compute-1.amazonaws.com uptime'
+                    sh 'ssh -v ubuntu@ec2-52-87-217-26.compute-1.amazonaws.com'
+                    sh 'touch test'
                 }
             }
         }

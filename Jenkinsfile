@@ -17,7 +17,12 @@ pipeline {
         }
         stage('Build Image') {
             steps {
-                sh 'docker build -t mghani828/node-app:'
+                sh "docker build -t mghani828/node-app:${BUILD_NUMBER}"
+            }
+        }
+        stage('Push Image') {
+            steps {
+                sh "docker push mghani828/node-app:${BUILD_NUMBER}"
             }
         }
     }

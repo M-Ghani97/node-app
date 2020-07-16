@@ -8,6 +8,9 @@ pipeline {
     agent any
     environment {
         HOME = '.'
+        REGISTRY = 'mghani828/node-app'
+        REG_CRED = 'docker-hub'
+        IMAGE = ''
     }
     stages {
         stage('Build App') { 
@@ -17,13 +20,16 @@ pipeline {
         }
         stage('Build Image') {
             steps {
-                sh "docker build -t mghani828/node-app:${BUILD_NUMBER}"
+                // sh "docker build -t mghani828/node-app:${BUILD_NUMBER} ."
+                script {
+                    IMAGE = docker.build REGISTRY + "${BUILD_NUMBER}"
+                }
             }
         }
-        stage('Push Image') {
-            steps {
-                sh "docker push mghani828/node-app:${BUILD_NUMBER}"
-            }
-        }
+        // stage('Push Image') {
+        //     steps {
+        //         sh "docker push mghani828/node-app:${BUILD_NUMBER}"
+        //     }
+        // }
     }
 }

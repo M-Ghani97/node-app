@@ -40,10 +40,14 @@ pipeline {
             steps{
                 sshagent(credentials : ['ec2-deploy']) {
                     sh 'ssh -o StrictHostKeyChecking=no ubuntu@ec2-52-87-217-26.compute-1.amazonaws.com uptime'
-                    sh 'ssh -v ubuntu@ec2-52-87-217-26.compute-1.amazonaws.com'
-                    sh "docker pull $registry:$BUILD_NUMBER"
-                    sh "docker run -d --name=node-app -p 3000:3000 $registry:$BUILD_NUMBER"
-                    sh "exit"
+                    sh "ssh -v ubuntu@ec2-52-87-217-26.compute-1.amazonaws.com << EOF
+                            docker pull $registry:$BUILD_NUMBER
+                            docker run -d --name=node-app -p 3000:3000 $registry:$BUILD_NUMBER
+                            exit
+                        EOF"
+                    // sh "docker pull $registry:$BUILD_NUMBER"
+                    // sh "docker run -d --name=node-app -p 3000:3000 $registry:$BUILD_NUMBER"
+                    // sh "exit"
                 }
             }
         }

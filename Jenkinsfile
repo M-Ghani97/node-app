@@ -42,7 +42,8 @@ pipeline {
                     sh 'ssh -o StrictHostKeyChecking=no ubuntu@ec2-52-87-217-26.compute-1.amazonaws.com uptime'
                     sh 'ssh -v ubuntu@ec2-52-87-217-26.compute-1.amazonaws.com'
                     sh "docker pull $registry:$BUILD_NUMBER"
-                    sh "docker run --name=node-app -p 3000:3000 $registry:$BUILD_NUMBER"
+                    sh "docker run -d --name=node-app -p 3000:3000 $registry:$BUILD_NUMBER"
+                    sh "exit"
                 }
             }
         }

@@ -26,10 +26,14 @@ pipeline {
                 }
             }
         }
-        // stage('Push Image') {
-        //     steps {
-        //         sh "docker push mghani828/node-app:${BUILD_NUMBER}"
-        //     }
-        // }
+        stage('Push Image') {
+            steps {
+                // sh "docker push mghani828/node-app:${BUILD_NUMBER}"
+                script {
+                    docker.withRegistry( '', registryCredential ) {
+                    dockerImage.push()
+                }
+            }
+        }
     }
 }

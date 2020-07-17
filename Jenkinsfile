@@ -35,7 +35,7 @@ pipeline {
             steps{
                 sshagent(credentials : ['ec2-deploy']) {
                     sh 'ssh -o StrictHostKeyChecking=no ubuntu@ec2-54-90-29-225.compute-1.amazonaws.com uptime'
-                    sh "ssh -v ubuntu@ec2-54-90-29-225.compute-1.amazonaws.com './deploy.sh $registry $BUILD_NUMBER $prevBUILD'"
+                    sh "ssh -v ubuntu@ec2-54-90-29-225.compute-1.amazonaws.com './deploy.sh"
                 }
             }
         }
